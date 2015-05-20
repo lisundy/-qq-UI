@@ -116,9 +116,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    ChatView *chatView = ((ChatView *)[_chatViewArray objectAtIndex:indexPath.row]);
-//    ChatFrame *chatFrame = chatView.chatFrame;
-    return 59;
+    ChatView *chatView = ((ChatView *)[_chatViewArray objectAtIndex:indexPath.row]);
+    ChatFrame *chatFrame = chatView.chatFrame;
+    return chatFrame.chatViewHeigh;
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
@@ -149,8 +149,11 @@
     
     [_chatViewArray addObject:chatView];
     
-    [chatFrame release];
+    [chatView release];
     [chatMsg release];
+    [chatFrame release];
+    
+    _textFiled.text = @"";
     
     [self.myTable reloadData];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_chatViewArray.count - 1 inSection:0];

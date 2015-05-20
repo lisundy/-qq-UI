@@ -15,6 +15,7 @@
 {
     [_userPhoto release];
     [_textLabel release];
+    [_chatFrame release];
     [super dealloc];
 }
 
@@ -39,16 +40,25 @@
 
 - (void)setChatFrame:(ChatFrame *)chatFrame
 {
-    _chatFrame = chatFrame;
-    self.userPhoto.frame = chatFrame.userPhotoFrame;
-    self.textLabel.frame = chatFrame.textLabelFrame;
-    self.textLabel.numberOfLines = 0;
-    self.textLabel.font  = [UIFont systemFontOfSize:15];
-    self.textLabel.layer.cornerRadius = 8;
+    if (_chatFrame != chatFrame) {
+        
+        [_chatFrame release];
+        _chatFrame = [chatFrame retain];
+        
+        self.userPhoto.frame = chatFrame.userPhotoFrame;
+        self.textLabel.frame = chatFrame.textLabelFrame;
+        self.textLabel.numberOfLines = 0;
+        self.textLabel.font  = [UIFont systemFontOfSize:15];
+        self.textLabel.layer.cornerRadius = 8;
+        
+        ChatMessage *chatMsg = chatFrame.chatMsg;
+        self.userPhoto.image = [UIImage imageNamed:chatMsg.photo];
+        self.textLabel.text  = chatMsg.msg;
+    }
+//    _chatFrame = chatFrame;
+//    [_chatFrame release];
+//    _chatFrame = [chatFrame retain];
     
-    ChatMessage *chatMsg = chatFrame.chatMsg;
-    self.userPhoto.image = [UIImage imageNamed:chatMsg.photo];
-    self.textLabel.text  = chatMsg.msg;
-}
+    }
 
 @end

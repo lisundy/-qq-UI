@@ -16,5 +16,5 @@
 @property (assign, nonatomic,readonly) CGRect    userPhotoFrame;
 @property (assign, nonatomic,readonly) CGRect    textLabelFrame;
 
-@property (nonatomic) CGFloat    chatViewHeigh;
+@property (assign,nonatomic) CGFloat    chatViewHeigh;
 @end
